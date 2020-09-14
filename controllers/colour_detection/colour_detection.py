@@ -23,8 +23,8 @@ SPEED = 4
 # Initialise the camera:
 camera = robot.getCamera("camera")
 camera.enable(timestep)
-width = camera.getWidth(camera)
-height = camera.getHeight(camera)
+width = camera.getWidth()
+height = camera.getHeight()
 
 pause_counter = 0
 left_motor_speed = 0
@@ -74,3 +74,20 @@ while robot.step(timestep) != -1:
         else:
             current_blob = "none"
 
+        # Case 3a:
+        # No colour is detected, so the robot continues to turn:
+        if current_blob == 'none':
+            left_motor_speed = -SPEED
+            right_motor_speed = SPEED
+
+        # Case 3b:
+        # A colour has been detected, so the robot stops and reports this:
+        else:
+            left_motor_speed = 0.0
+            right_motor_speed = 0.0
+            print("A {} coloured object has been detected.".format(current_blob))
+            pause_counter = 20
+
+    # set the motor speeds:
+    left_motor.setVelocity(left_motor_speed)
+    right_motor.setVelocity(right_motor_speed)
