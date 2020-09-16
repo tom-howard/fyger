@@ -6,114 +6,27 @@ WorldInfo {
   title "Camera"
 }
 Viewpoint {
-  orientation 0.13807123848941807 0.9496599302167839 0.2812158424460675 4.045741682374101
-  position -1.1254046826122504 1.0034102344032474 -0.6440064367361676
+  orientation 0.7783670393809806 0.5860926024849423 0.22503380483321708 5.407504717107056
+  position -1.151342266727967 2.050495330408252 2.219473263576721
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 RectangleArena {
-}
-PointLight {
-  attenuation 0 0 1
-  intensity 0.6
-  location 0 0.6 0
-}
-DEF GREEN_BOX Solid {
-  translation -0.05 0.05 -0.25
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 0 1 0
-        roughness 0.2189099510000001
-        metalness 0
-      }
-      geometry DEF BOX0 Box {
-        size 0.23 0.1 0.1
-      }
+  floorTileSize 1 1
+  floorAppearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "textures/moving_in_a_square_floor_texture.png"
+      ]
     }
-  ]
-  name "green box"
-  boundingObject Shape {
-    appearance PBRAppearance {
-      metalness 0
-    }
-    geometry USE BOX0
-  }
-}
-DEF BLUE_BOX Solid {
-  translation 0.2 0.05 0.27
-  rotation 0 1 0 0.31
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 0 0 1
-        roughness 0.519341125
-        metalness 0
-      }
-      geometry DEF BOX1 Box {
-        size 0.2 0.1 0.1
-      }
-    }
-  ]
-  name "blue box"
-  boundingObject Shape {
-    appearance PBRAppearance {
-      metalness 0
-    }
-    geometry USE BOX1
-  }
-}
-DEF WHITE_BOX Solid {
-  translation -0.2 0.05 0.15
-  rotation 0 1 0 0.4
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 0.74902 0.74902 0.74902
-        roughness 0.10196099999999997
-        metalness 0
-      }
-      geometry DEF BOX2 Box {
-        size 0.05 0.1 0.3
-      }
-    }
-  ]
-  name "gray box"
-  boundingObject Shape {
-    appearance PBRAppearance {
-      metalness 0
-    }
-    geometry USE BOX2
-  }
-}
-DEF RED_BOX Solid {
-  translation 0.42 0.05 -0.1
-  rotation 0 1 0 1.8325996938995748
-  children [
-    Shape {
-      appearance PBRAppearance {
-        baseColor 1 0 0
-        roughness 0.16827074099999995
-        metalness 0
-      }
-      geometry DEF BOX3 Box {
-        size 0.2 0.1 0.08
-      }
-    }
-  ]
-  name "red box"
-  boundingObject Shape {
-    appearance PBRAppearance {
-      metalness 0
-    }
-    geometry USE BOX3
+    roughness 1
+    metalness 0
   }
 }
 Robot {
-  translation 0.15 0 0
-  rotation 0 1 0 1
+  translation -0.25 0 0.25
   children [
     Transform {
       translation 0 0.0415 0
@@ -140,9 +53,10 @@ Robot {
         RotationalMotor {
           name "left wheel motor"
           consumptionFactor 70
+          maxVelocity 3
         }
         PositionSensor {
-          name "left wheel sensor"
+          name "left wheel encoder"
         }
       ]
       endPoint Solid {
@@ -183,9 +97,10 @@ Robot {
         RotationalMotor {
           name "right wheel motor"
           consumptionFactor 70
+          maxVelocity 3
         }
         PositionSensor {
-          name "right wheel sensor"
+          name "right wheel encoder"
         }
       ]
       endPoint Solid {
@@ -262,32 +177,11 @@ Robot {
         }
       ]
     }
-    Camera {
-      translation 0 0.0915 -0.04
-      rotation 0 0 -1 0
-      children [
-        Transform {
-          translation 0 0 0.015
-          rotation 1 0 0 1.57
-          children [
-            Shape {
-              appearance PBRAppearance {
-                roughness 1
-                metalness 0
-              }
-              geometry Cylinder {
-                height 0.03
-                radius 0.01
-              }
-            }
-          ]
-        }
-      ]
-      fieldOfView 1.047
-      width 80
-      height 60
-      antiAliasing TRUE
-      noise 0.04
+    Pen {
+      translation 0 0.001 0
+      rotation 0 0 1 0
+      inkColor 1 0 0
+      leadSize 0.02
     }
   ]
   name "MyBot"
@@ -301,5 +195,5 @@ Robot {
     density -1
     mass 0.5
   }
-  controller "colour_detection"
+  controller "square_path"
 }

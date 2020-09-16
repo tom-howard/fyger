@@ -1,12 +1,11 @@
-"""colour_detection controller."""
+"""A simple controller to make a robot detect the coloured corners of a small arena."""
 
-# You may need to import some classes of the controller module. Ex:
-#  from controller import Robot, Motor, DistanceSensor
+# needs tidying up...
+
 from controller import Robot
 
 # create the Robot instance.
 robot = Robot()
-
 # get the time step of the current world.
 timestep = int(robot.getBasicTimeStep())
 
@@ -32,6 +31,7 @@ right_motor_speed = 0
 red = 0
 green = 0
 blue = 0
+
 # Main loop:
 # this runs until the simulation is stopped
 while robot.step(timestep) != -1:
@@ -86,6 +86,7 @@ while robot.step(timestep) != -1:
             left_motor_speed = 0.0
             right_motor_speed = 0.0
             print("A {} coloured object has been detected.".format(current_blob))
+            # camera.saveImage('{}.png'.format(current_blob), quality = -1)
             pause_counter = 20
 
     # set the motor speeds:

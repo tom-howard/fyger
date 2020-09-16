@@ -1,0 +1,50 @@
+#VRML_SIM R2020a utf8
+# A two-walled corner with a custom colour field for the FYGER colour detection exercise.
+
+PROTO ColouredCorner [
+  field SFVec3f translation 0 0 0
+  field SFRotation rotation 0 1 0 0
+  field SFColor colour 0 0 0
+  field SFString name "coloured corner"
+]
+{
+  Solid {
+    translation IS translation
+	rotation IS rotation
+    children [
+	  DEF LONG_SIDE Transform {
+        translation 0 0.06 -0.095
+        children [
+          Shape {
+            appearance DEF CORNER_WALL_APR PBRAppearance {
+              baseColor IS colour
+              roughness 1
+              metalness 0
+            }
+            geometry Box {
+              size 0.2 0.12 0.01
+            }
+          }
+        ]
+      }
+      DEF SHORT_SIDE Transform {
+        translation 0.095 0.06 0.005
+        children [
+          Shape {
+            appearance USE CORNER_WALL_APR
+            geometry Box {
+              size 0.01 0.12 0.19
+            }
+          }
+        ]
+      }
+	]
+    name IS name
+    boundingObject Group {
+      children [
+        USE LONG_SIDE
+        USE SHORT_SIDE
+      ]
+    }
+  }
+}
