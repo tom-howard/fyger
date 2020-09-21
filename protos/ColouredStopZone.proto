@@ -1,0 +1,58 @@
+#VRML_SIM R2020a utf8
+# A three-walled stop zone with re-configurable colour field for the FYGER challenge.
+
+PROTO ColouredStopZone [
+  field SFVec3f translation 0 0 0
+  field SFRotation rotation 0 1 0 0
+  field SFColor colour 0 0 0
+  field SFString name "coloured stop zone"
+]
+{
+  Solid {
+    translation IS translation
+	rotation IS rotation
+    children [
+	  DEF LEFT_WALL Transform {
+        translation 0.145 0.075 0.005
+        children [
+          DEF SHORT_SIDE Shape {
+            appearance DEF SIDE_APR PBRAppearance {
+              baseColor IS colour
+              roughness 1
+              metalness 0
+            }
+            geometry Box {
+              size 0.01 0.15 0.29
+            }
+          }
+        ]
+      }
+      DEF BACK_WALL Transform {
+        translation 0.005 0.075 -0.145
+        rotation 0 1 0 1.5707996938995747
+        children [
+          USE SHORT_SIDE
+        ]
+      }
+	  DEF RIGHT_WALL Transform {
+        translation -0.145 0.075 0
+        children [
+          Shape {
+            appearance USE SIDE_APR
+            geometry Box {
+              size 0.01 0.15 0.3
+            }
+          }
+        ]
+      }
+	]
+    name IS name
+    boundingObject Group {
+      children [
+        USE RIGHT_WALL
+        USE BACK_WALL
+        USE LEFT_WALL
+      ]
+    }
+  }
+}

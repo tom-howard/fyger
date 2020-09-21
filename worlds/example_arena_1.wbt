@@ -1,0 +1,194 @@
+#VRML_SIM R2020a utf8
+WorldInfo {
+  contactProperties [
+    ContactProperties {
+      material2 "robot"
+      coulombFriction [
+        0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.45539286246626 0.881947464526401 0.1215977410573018 5.615771548395253
+  position -3.5348210022334308 2.1761278094760983 7.660292796984202
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 1 9.5
+  floorTileSize 2.4 9.6
+  floorAppearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "textures/arena_floor.png"
+      ]
+    }
+    roughness 1
+    metalness 0
+  }
+}
+DEF OBSTACLES Group {
+  children [
+    cylinder {
+      translation -0.111345 0.06 3.76538
+    }
+    cube {
+      translation 0.130377 0.05 3.24142
+      name "cube(2)"
+      colour 0.5 0 0
+    }
+    cube {
+      translation -0.265476 0.05 0.805005
+      name "cube(3)"
+      colour 0 1 0.5
+    }
+    cube {
+      translation -0.152234 0.05 0.695571
+      name "cube(5)"
+      colour 0.5 0.5 0
+    }
+    cube {
+      translation -0.035919 0.05 0.565252
+      name "cube(6)"
+      colour 0.5 0 0.5
+    }
+    cube {
+      translation -0.0162673 0.1 -2.36382
+      name "cube(7)"
+      size 0.2 0.2 0.2
+      colour 1 0.5 0.5
+    }
+    cube {
+      translation -0.0162673 0.27 -2.36382
+      rotation 0 1 0 0.5235996938995747
+      name "cube(8)"
+      size 0.14 0.14 0.14
+      colour 0.5 1 0
+    }
+    cube {
+      translation -0.0162673 0.39 -2.36382
+      rotation 0 1 0 -0.1308996938995747
+      name "cube(9)"
+      colour 0.5 0 1
+    }
+    cube {
+      translation -0.380856 0.05 0.928916
+      name "cube(4)"
+      colour 0.5 1 1
+    }
+    wall {
+      translation 0.340723 0.07 2.76567
+      rotation 0 1 0 -0.785395307179586
+    }
+    cube {
+      translation -0.341091 0.1 2.72579
+      rotation 0 1 0 -0.785395307179586
+      name "cube(1)"
+      size 0.1 0.2 0.3
+      colour 0 0.5 0.5
+    }
+    wall {
+      translation -0.186939 0.07 1.48883
+      rotation 0 1 0 3.141592653589793
+      name "wall(1)"
+      length 0.6
+    }
+    wall {
+      translation 0.104131 0.07 1.76361
+      rotation 0 1 0 4.712389693899574
+      name "wall(2)"
+      length 0.5
+    }
+    cylinder {
+      translation 0.269972 0.06 -0.364415
+      name "cylinder(1)"
+      radius 0.2
+    }
+    wall {
+      translation -0.305037 0.07 -1.1047
+      rotation 0 1 0 0.7853996938995746
+      name "wall(3)"
+    }
+    wall {
+      translation 0.324353 0.07 -1.14565
+      rotation 0 1 0 0.7853996938995746
+      name "wall(5)"
+    }
+    wall {
+      translation -0.325161 0.07 -1.40974
+      rotation 0 1 0 -0.7854003061004253
+      name "wall(4)"
+    }
+    wall {
+      translation 0.334278 0.07 -1.44647
+      rotation 0 1 0 -0.7854003061004253
+      name "wall(6)"
+    }
+  ]
+}
+DEF STOP_ZONES Group {
+  children [
+    ColouredStopZone {
+      translation 0 0 -4.564
+      colour 0 1 0
+    }
+    ColouredStopZone {
+      translation -0.32 0 -4.564
+      colour 1 0 0
+      name "coloured stop zone(1)"
+    }
+    ColouredStopZone {
+      translation 0.32 0 -4.564
+      colour 0 0 1
+      name "coloured stop zone(2)"
+    }
+  ]
+}
+Solid {
+  children [
+    Transform {
+      translation 0.5 0.3 -3.75
+      children [
+        DEF FLAG_POLE Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.6
+            radius 0.02
+          }
+        }
+      ]
+    }
+    Transform {
+      translation -0.5 0.3 -3.75
+      children [
+        USE FLAG_POLE
+      ]
+    }
+    Transform {
+      translation 0 0.55 -3.75
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/chequered_flag.png"
+              ]
+            }
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 1 0.1 0.01
+          }
+        }
+      ]
+    }
+  ]
+}

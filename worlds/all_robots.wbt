@@ -1,0 +1,734 @@
+#VRML_SIM R2020a utf8
+WorldInfo {
+  contactProperties [
+    ContactProperties {
+      material2 "robot"
+      coulombFriction [
+        0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.5726725331543696 -0.7998418668457657 -0.17971966450902854 0.7478063435107912
+  position -0.711778944749245 0.6853701904838387 1.1074911002855203
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorTileSize 1 1
+  floorAppearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "textures/robot_floor_texture.png"
+      ]
+    }
+    roughness 1
+    metalness 0
+  }
+}
+Robot {
+  translation 0.3 0 0
+  rotation 0 1 0 3.141592653589793
+  children [
+    Transform {
+      translation 0 0.04 0
+      children [
+        Shape {
+          appearance DEF BODY_APR PBRAppearance {
+            baseColor 0 0 1
+            roughness 1
+            metalness 0
+          }
+          geometry DEF BODY Cylinder {
+            height 0.06
+            radius 0.08
+          }
+        }
+      ]
+    }
+    Transform {
+      translation 0 0.07 0
+      children [
+        Shape {
+          appearance USE BODY_APR
+          geometry DEF HEAD Sphere {
+            radius 0.06
+            subdivision 2
+          }
+        }
+      ]
+    }
+    Transform {
+      translation 0 0.01 0.06
+      children [
+        Shape {
+          appearance DEF CASTER_APR PBRAppearance {
+          }
+          geometry DEF CASTER_GEOM Sphere {
+            radius 0.01
+          }
+        }
+      ]
+    }
+    Transform {
+      translation 0 0.01 -0.06
+      children [
+        Shape {
+          appearance USE CASTER_APR
+          geometry USE CASTER_GEOM
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis -1 0 0
+        anchor 0 0.04 0
+      }
+      device [
+        RotationalMotor {
+          name "left wheel motor"
+          consumptionFactor 70
+          maxVelocity 8
+        }
+        PositionSensor {
+          name "left wheel encoder"
+        }
+      ]
+      endPoint Solid {
+        translation -0.08 0.04 0
+        rotation 1 0 0 4.98467
+        children [
+          DEF WHEEL Transform {
+            rotation 0 0 1 1.57
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 1 0 0
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.01
+                  radius 0.04
+                }
+              }
+            ]
+          }
+        ]
+        name "left wheel"
+        boundingObject USE WHEEL
+        physics DEF PHYSICS_WHEEL Physics {
+          density -1
+          mass 0.05
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis -1 0 0
+        anchor 0 0.04 0
+      }
+      device [
+        RotationalMotor {
+          name "right wheel motor"
+          consumptionFactor 70
+          maxVelocity 8
+        }
+        PositionSensor {
+          name "right wheel encoder"
+        }
+      ]
+      endPoint Solid {
+        translation 0.08 0.04 0
+        rotation 1 0 0 4.58735
+        children [
+          USE WHEEL
+        ]
+        name "right wheel"
+        boundingObject USE WHEEL
+        physics USE PHYSICS_WHEEL
+      }
+    }
+    DistanceSensor {
+      translation -0.036 0.04 -0.072
+      rotation 0 1 0 2.07
+      children [
+        DEF SENSOR Transform {
+          rotation 0 0 1 1.57
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.975691 0.981481 0.0252992
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.004
+                radius 0.008
+              }
+            }
+          ]
+        }
+      ]
+      name "ds0"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    DistanceSensor {
+      translation 0.036 0.04 -0.072
+      rotation 0 1 0 1.07
+      children [
+        USE SENSOR
+      ]
+      name "ds1"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    Camera {
+      translation 0 0.07 -0.09
+      rotation 0 0 -1 0
+      children [
+        Transform {
+          translation 0 0 0.015
+          rotation 1 0 0 1.57
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.03
+                radius 0.01
+              }
+            }
+          ]
+        }
+      ]
+      fieldOfView 1.047
+      width 80
+      height 60
+      antiAliasing TRUE
+      noise 0.04
+    }
+    Compass {
+      translation 0 0.04 0
+      yAxis FALSE
+      zAxis FALSE
+    }
+  ]
+  name "TheEggMan"
+  contactMaterial "robot"
+  boundingObject Group {
+    children [
+      Transform {
+        translation 0 0.04 0
+        children [
+          USE BODY
+        ]
+      }
+      Transform {
+        translation 0 0.07 0
+        children [
+          USE HEAD
+        ]
+      }
+      Transform {
+        translation 0 0.01 0.06
+        children [
+          USE CASTER_GEOM
+        ]
+      }
+      Transform {
+        translation 0 0.01 -0.06
+        children [
+          USE CASTER_GEOM
+        ]
+      }
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 0.5
+  }
+  controller "compass_test"
+}
+Robot {
+  translation -0.3 0 0
+  children [
+    Transform {
+      translation 0 0.04 0
+      children [
+        Shape {
+          appearance DEF R2_BODY_APR PBRAppearance {
+            baseColor 1 0 0
+            roughness 1
+            metalness 0
+          }
+          geometry DEF R2_BODY Box {
+            size 0.08 0.04 0.15
+          }
+        }
+      ]
+    }
+    Transform {
+      translation 0 0.02 -0.05
+      rotation 0 0 1 1.5707996938995747
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 1
+          }
+          geometry DEF R2_IDLER_BODY Sphere {
+            radius 0.02
+          }
+        }
+      ]
+    }
+    Transform {
+      translation 0 0.06 0.075
+      rotation 0 0 1 1.5707996938995747
+      children [
+        Shape {
+          appearance USE R2_BODY_APR
+          geometry DEF R2_CAM_HOLDER Capsule {
+            height 0.02
+            radius 0.01
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis -1 0 0
+        anchor 0 0.03 0.04
+      }
+      device [
+        RotationalMotor {
+          name "left wheel motor"
+          consumptionFactor 70
+          maxVelocity 8
+        }
+        PositionSensor {
+          name "left wheel encoder"
+        }
+      ]
+      endPoint Solid {
+        translation 0.045 0.03 0.04
+        rotation -1 0 0 0
+        children [
+          DEF R2_WHEEL Transform {
+            rotation 0 0 1 1.57
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0 1 0
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.01
+                  radius 0.03
+                }
+              }
+            ]
+          }
+        ]
+        name "left wheel"
+        boundingObject USE R2_WHEEL
+        physics DEF R2_PHYSICS_WHEEL Physics {
+          density -1
+          mass 0.05
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis -1 0 0
+        anchor 0 0.03 0.04
+      }
+      device [
+        RotationalMotor {
+          name "right wheel motor"
+          consumptionFactor 70
+          maxVelocity 8
+        }
+        PositionSensor {
+          name "right wheel encoder"
+        }
+      ]
+      endPoint Solid {
+        translation -0.045 0.03 0.04
+        rotation 1 0 0 4.58735
+        children [
+          USE R2_WHEEL
+        ]
+        name "right wheel"
+        boundingObject USE R2_WHEEL
+        physics USE R2_PHYSICS_WHEEL
+      }
+    }
+    DistanceSensor {
+      translation 0.025 0.04 0.072
+      rotation 0 1 0 -1.1781003061004252
+      children [
+        DEF R2_SENSOR Transform {
+          rotation 0 0 1 1.5699996938995748
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.975691 0.981481 0.0252992
+                roughness 1
+                metalness 0
+              }
+              geometry Box {
+                size 0.01 0.01 0.01
+              }
+            }
+          ]
+        }
+      ]
+      name "ds0"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    DistanceSensor {
+      translation -0.025 0.04 0.072
+      rotation 0 1 0 -1.9634996938995748
+      children [
+        USE R2_SENSOR
+      ]
+      name "ds1"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    Camera {
+      translation 0 0.07 0.09
+      rotation 0 1 0 3.141592653589793
+      children [
+        Transform {
+          translation 0 0 0.015
+          rotation 1 0 0 1.57
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.03
+                radius 0.01
+              }
+            }
+          ]
+        }
+      ]
+      fieldOfView 1.047
+      width 80
+      height 60
+      antiAliasing TRUE
+      noise 0.04
+    }
+    Compass {
+      translation 0 0.04 0
+      yAxis FALSE
+      zAxis FALSE
+    }
+  ]
+  name "the egg-zecutive"
+  contactMaterial "robot"
+  boundingObject Group {
+    children [
+      Transform {
+        translation 0 0.04 0
+        children [
+          USE R2_BODY
+        ]
+      }
+      Transform {
+        translation 0 0.02 -0.05
+        rotation 0 0 1 1.5707996938995747
+        children [
+          USE R2_IDLER_BODY
+        ]
+      }
+      Transform {
+        translation 0 0.06 0.075
+        rotation 0 0 1 1.5707996938995747
+        children [
+          USE R2_CAM_HOLDER
+        ]
+      }
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 0.5
+  }
+  controller "compass_test"
+}
+Robot {
+  children [
+    Transform {
+      translation 0 0.03 0
+      children [
+        Shape {
+          appearance DEF R3_BODY_ARP PBRAppearance {
+            baseColor 0 1 0
+            roughness 1
+            metalness 0
+          }
+          geometry DEF R3_BODY_BASE Box {
+            size 0.07 0.04 0.12
+          }
+        }
+      ]
+    }
+    Transform {
+      translation 0 0.06 0
+      children [
+        Shape {
+          appearance USE R3_BODY_ARP
+          geometry DEF R3_BODY_TOP Cylinder {
+            height 0.02
+            radius 0.07
+          }
+        }
+      ]
+    }
+    Transform {
+      translation 0.04 0.024 -0.04
+      rotation 0 0 1 1.5707996938995747
+      children [
+        Shape {
+          appearance DEF R3_IDLER_APR PBRAppearance {
+            baseColor 0.5 0.5 0.5
+            roughness 1
+            metalness 0
+          }
+          geometry DEF R3_IDLER_1 Cylinder {
+            height 0.01
+            radius 0.024
+          }
+        }
+      ]
+    }
+    Transform {
+      translation -0.04 0.024 -0.04
+      rotation 0 0 1 1.5707996938995747
+      children [
+        Shape {
+          appearance USE R3_IDLER_APR
+          geometry DEF R3_IDLER_2 Cylinder {
+            height 0.01
+            radius 0.024
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0 0.024 0.04
+      }
+      device [
+        RotationalMotor {
+          name "left wheel motor"
+          consumptionFactor 70
+          maxVelocity 8
+        }
+        PositionSensor {
+          name "left wheel encoder"
+        }
+      ]
+      endPoint Solid {
+        translation 0.04 0.024 0.04
+        rotation -1 0 0 0
+        children [
+          DEF R3_WHEEL Transform {
+            rotation 0 0 1 1.57
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0 0 1
+                  roughness 1
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.01
+                  radius 0.024
+                }
+              }
+            ]
+          }
+        ]
+        name "left wheel"
+        boundingObject USE R3_WHEEL
+        physics DEF R3_PHYSICS_WHEEL Physics {
+          density -1
+          mass 0.05
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0 0.024 0.04
+      }
+      device [
+        RotationalMotor {
+          name "right wheel motor"
+          consumptionFactor 70
+          maxVelocity 8
+        }
+        PositionSensor {
+          name "right wheel encoder"
+        }
+      ]
+      endPoint Solid {
+        translation -0.04 0.024 0.04
+        rotation 1 0 0 4.58735
+        children [
+          USE R3_WHEEL
+        ]
+        name "right wheel"
+        boundingObject USE R3_WHEEL
+        physics USE R3_PHYSICS_WHEEL
+      }
+    }
+    DistanceSensor {
+      translation 0.03 0.06 0.06
+      rotation 0 1 0 -1.1781003061004252
+      children [
+        DEF R3_SENSOR Transform {
+          rotation 0 0 1 1.5699996938995748
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.975691 0.981481 0.0252992
+                roughness 1
+                metalness 0
+              }
+              geometry Box {
+                size 0.01 0.01 0.01
+              }
+            }
+          ]
+        }
+      ]
+      name "ds0"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    DistanceSensor {
+      translation -0.03 0.06 0.06
+      rotation 0 1 0 -1.9634996938995748
+      children [
+        USE R3_SENSOR
+      ]
+      name "ds1"
+      lookupTable [
+        0 1024 0
+        0.05 1024 0
+        0.15 0 0
+      ]
+      numberOfRays 2
+      aperture 1
+    }
+    Camera {
+      translation 0 0.06 0.08
+      rotation 0 1 0 3.141592653589793
+      children [
+        Transform {
+          translation 0 0 0.015
+          rotation 1 0 0 1.57
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.03
+                radius 0.01
+              }
+            }
+          ]
+        }
+      ]
+      fieldOfView 1.047
+      width 80
+      height 60
+      antiAliasing TRUE
+      noise 0.04
+    }
+    Compass {
+      translation 0 0.04 0
+      yAxis FALSE
+      zAxis FALSE
+    }
+  ]
+  name "The egg-sterminator"
+  contactMaterial "robot"
+  boundingObject Group {
+    children [
+      Transform {
+        translation 0 0.03 0
+        children [
+          USE R3_BODY_BASE
+        ]
+      }
+      Transform {
+        translation 0 0.06 0
+        children [
+          USE R3_BODY_TOP
+        ]
+      }
+      Transform {
+        translation 0.04 0.024 -0.04
+        rotation 0 0 1 1.5707996938995747
+        children [
+          USE R3_IDLER_1
+        ]
+      }
+      Transform {
+        translation -0.04 0.024 -0.04
+        rotation 0 0 1 1.5707996938995747
+        children [
+          USE R3_IDLER_2
+        ]
+      }
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 0.5
+  }
+  controller "compass_test"
+}

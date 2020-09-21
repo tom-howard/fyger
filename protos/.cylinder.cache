@@ -1,0 +1,11 @@
+Webots Proto Cache File version 1.4
+protoFileHash: 6d14ec8e45a8107b0430e7a00fd28bef
+containsDevices: 0
+baseType: Solid
+slotType: 
+parameters: translation,rotation,name,height,colour,radius
+tags: 
+license: 
+licenseUrl: 
+documentationUrl: 
+info: A\scylinder\sshaped\sobstacle\sof\sre-configurable\ssize\sand\scolour\sfor\sthe\sFYGER\schallenge\sarena.\n

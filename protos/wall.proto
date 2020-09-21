@@ -1,0 +1,33 @@
+#VRML_SIM R2020a utf8
+# Plywood wall element with re-configurable length for the FYGER challenge arena.
+
+PROTO wall [
+  field SFVec3f translation 0 0.07 0
+  field SFRotation rotation 0 1 0 0
+  field SFString name "wall"
+  field SFFloat length 0.400
+]
+{
+  Solid {
+    translation IS translation
+    rotation IS rotation
+    children [
+      Shape {
+        appearance PBRAppearance {
+          baseColorMap ImageTexture {
+            url [
+              "textures/lightwood.jpg"
+            ]
+          }
+          roughness 1
+          metalness 0
+        }
+        geometry DEF WALL_GEOM Box {
+          size %{= fields.length.value }% 0.14 0.02
+        }
+      }
+    ]
+    name IS name
+    boundingObject USE WALL_GEOM
+  }
+}

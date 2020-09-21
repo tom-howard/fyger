@@ -1,0 +1,36 @@
+#VRML_SIM R2020a utf8
+# A cylinder shaped obstacle of re-configurable size and colour for the FYGER challenge arena.
+
+PROTO cylinder [
+  field SFVec3f translation 0 0.06 0
+  field SFRotation rotation 0 1 0 0
+  field SFString name "cylinder"
+  field SFFloat height 0.12
+  field SFColor colour 0 0 1
+  field SFFloat radius 0.05
+]
+{
+  Solid {
+    translation IS translation
+	rotation IS rotation
+    children [
+      DEF CYL_SHAPE Shape {
+        appearance PBRAppearance {
+		  baseColor IS colour
+		  roughness 1
+          metalness 0
+        }
+        geometry Cylinder {
+          height IS height
+          radius IS radius
+        }
+      }
+    ]
+    name IS name
+    boundingObject USE CYL_SHAPE
+    physics Physics {
+      density -1
+      mass 0.5
+    }
+  }
+}

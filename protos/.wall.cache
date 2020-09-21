@@ -1,0 +1,11 @@
+Webots Proto Cache File version 1.4
+protoFileHash: b46aa32f7517fe68c71e0d3b1e8c419f
+containsDevices: 0
+baseType: Solid
+slotType: 
+parameters: translation,rotation,name,length
+tags: 
+license: 
+licenseUrl: 
+documentationUrl: 
+info: Plywood\swall\selement\swith\sre-configurable\slength\sfor\sthe\sFYGER\schallenge\sarena.\n
