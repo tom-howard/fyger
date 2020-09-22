@@ -9,4 +9,3 @@ viewpointLocked: 0
 orthographicViewHeight: 1
 textFiles: 0 "controllers/compass_test/compass_test.py" "controllers/colour_detection/colour_detection.py"
 renderingDevicePerspectives: TheEgg-zecutive:camera;0;1;0;0
-renderingDevicePerspectives: the egg-zecutive:camera;0;1;0;0

@@ -147,10 +147,11 @@ DEF STOP_ZONES Group {
     }
   ]
 }
-Solid {
+DEF FINISH_FLAG Solid {
+  translation 0 0 -3.75
   children [
     Transform {
-      translation 0.5 0.3 -3.75
+      translation 0.5 0.3 0
       children [
         DEF FLAG_POLE Shape {
           appearance PBRAppearance {
@@ -166,13 +167,13 @@ Solid {
       ]
     }
     Transform {
-      translation -0.5 0.3 -3.75
+      translation -0.5 0.3 0
       children [
         USE FLAG_POLE
       ]
     }
     Transform {
-      translation 0 0.55 -3.75
+      translation 0 0.55 0
       children [
         Shape {
           appearance PBRAppearance {

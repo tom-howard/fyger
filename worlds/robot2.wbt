@@ -2,7 +2,7 @@
 WorldInfo {
   contactProperties [
     ContactProperties {
-      material2 "robot"
+      material2 "slider"
       coulombFriction [
         0
       ]
@@ -46,6 +46,24 @@ Robot {
         }
       ]
     }
+    Solid {
+      translation 0 0.02 -0.05
+      rotation 0 0 1 1.5707996938995747
+      children [
+        DEF CASTOR Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 1
+          }
+          geometry Sphere {
+            radius 0.02
+          }
+        }
+      ]
+      contactMaterial "slider"
+      boundingObject USE CASTOR
+      physics Physics {
+      }
+    }
     DEF IDLER_TR Transform {
       translation 0 0.02 -0.05
       rotation 0 0 1 1.5707996938995747
@@ -88,8 +106,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation 0.045 0.03 0.04
-        rotation -1 0 0 0
+        translation 0.04544579699778018 0.029921197509671357 0.03990746245182779
+        rotation 0.653567359805034 0.7494675479174239 -0.10558456713043349 6.266557882961011
         children [
           DEF R2_WHEEL Transform {
             rotation 0 0 1 1.57
@@ -131,8 +149,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation -0.045 0.03 0.04
-        rotation 1 0 0 4.58735
+        translation -0.04527154148080561 0.029375422536435217 0.03972129334266368
+        rotation -0.9999644575432618 -0.004621651719257443 -0.0070515236364891275 1.6849974077044423
         children [
           USE R2_WHEEL
         ]
@@ -219,12 +237,11 @@ Robot {
     }
   ]
   name "TheEgg-zecutive"
-  contactMaterial "robot"
+  contactMaterial ""
   boundingObject Group {
     children [
       USE BODY_TR
       USE CAM_MOUNT_TR
-      USE IDLER_TR
     ]
   }
   physics Physics {

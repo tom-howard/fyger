@@ -2,7 +2,7 @@
 WorldInfo {
   contactProperties [
     ContactProperties {
-      material2 "robot"
+      material2 "slider"
       coulombFriction [
         0
       ]
@@ -60,26 +60,32 @@ Robot {
         }
       ]
     }
-    DEF REAR_CASTER Transform {
+    DEF REAR_CASTOR Solid {
       translation 0 0.01 0.06
       children [
-        Shape {
-          appearance DEF CASTER_APR PBRAppearance {
+        DEF CASTOR Shape {
+          appearance PBRAppearance {
           }
-          geometry DEF CASTER_GEOM Sphere {
+          geometry Sphere {
             radius 0.01
           }
         }
       ]
+      contactMaterial "slider"
+      boundingObject USE CASTOR
+      physics Physics {
+      }
     }
-    DEF FRONT_CASTER Transform {
+    DEF FRONT_CASTOR Solid {
       translation 0 0.01 -0.06
       children [
-        Shape {
-          appearance USE CASTER_APR
-          geometry USE CASTER_GEOM
-        }
+        USE CASTOR
       ]
+      name "solid(1)"
+      contactMaterial "slider"
+      boundingObject USE CASTOR
+      physics Physics {
+      }
     }
     HingeJoint {
       jointParameters HingeJointParameters {
@@ -230,13 +236,11 @@ Robot {
     }
   ]
   name "TheEggMan"
-  contactMaterial "robot"
+  contactMaterial ""
   boundingObject Group {
     children [
       USE BASE_TR
       USE HEAD_TR
-      USE REAR_CASTER
-      USE FRONT_CASTER
     ]
   }
   physics Physics {
