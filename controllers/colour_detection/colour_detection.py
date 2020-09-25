@@ -1,10 +1,8 @@
 """A simple controller to make a robot detect the coloured corners of a small arena."""
 
-# needs tidying up...
-
 from controller import Robot
 
-# create the Robot instance.
+# create the Robot instance:
 robot = Robot()
 # get the time step of the current world.
 timestep = int(robot.getBasicTimeStep())
@@ -39,20 +37,21 @@ while robot.step(timestep) != -1:
         pause_counter -= 1
 
     # Case 1:
-    # A colour blob was found recently
-    # The robot waits in front of it until pause_counter is decremented enough:
+    # A coloured corner was found recently
+    # The robot stops turning until pause_counter is decremented enough:
     if pause_counter > 10:
         left_motor_speed = 0
         right_motor_speed = 0
     # Case 2:
-    # A colour blob was found more recently
+    # A coloured corner was found very recently
     # The robot begins to turn but shouldn't analyse any camera images just now,
-    # otherwise the same colour blob would be found again:
+    # otherwise the same coloured corner would be detected again:
     elif pause_counter > 0:
         left_motor_speed = -SPEED
         right_motor_speed = +SPEED
     # Case 3:
-    # The robot turns and analyses the camera image in order to find a new colour blob
+    # The robot turns and analyses the camera image in order to find a new 
+    # coloured corner
     else:
         red = 0
         green = 0
@@ -66,17 +65,17 @@ while robot.step(timestep) != -1:
                 blue = blue + image[x][y][2]
 
         if (red > (3 * green)) and (red > (3 * blue)):
-            current_blob = "red"
+            detected_colour = "red"
         elif (green > (3 * red)) and (green > (3 * blue)):
-            current_blob = "green"
+            detected_colour = "green"
         elif (blue > (3 * red)) and (blue > (3 * green)):
-            current_blob = "blue"
+            detected_colour = "blue"
         else:
-            current_blob = "none"
+            detected_colour = "none"
 
         # Case 3a:
         # No colour is detected, so the robot continues to turn:
-        if current_blob == 'none':
+        if detected_colour == 'none':
             left_motor_speed = -SPEED
             right_motor_speed = SPEED
 
@@ -85,8 +84,7 @@ while robot.step(timestep) != -1:
         else:
             left_motor_speed = 0.0
             right_motor_speed = 0.0
-            print("A {} coloured object has been detected.".format(current_blob))
-            # camera.saveImage('{}.png'.format(current_blob), quality = -1)
+            print("A {} coloured object has been detected.".format(detected_colour))
             pause_counter = 20
 
     # set the motor speeds:

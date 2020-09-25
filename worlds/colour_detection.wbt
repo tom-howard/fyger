@@ -1,5 +1,13 @@
 #VRML_SIM R2020a utf8
 WorldInfo {
+  contactProperties [
+    ContactProperties {
+      material2 "slider"
+      coulombFriction [
+        0
+      ]
+    }
+  ]
 }
 Viewpoint {
   orientation -0.6671732490625739 -0.7169130140911201 -0.20227601430242384 0.8001838355316804

@@ -2,7 +2,7 @@
 WorldInfo {
   contactProperties [
     ContactProperties {
-      material2 "robot"
+      material2 "slider"
       coulombFriction [
         0
       ]

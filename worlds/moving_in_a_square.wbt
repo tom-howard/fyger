@@ -1,9 +1,13 @@
 #VRML_SIM R2020a utf8
 WorldInfo {
-  info [
-    "Example use of a color Camera device."
+  contactProperties [
+    ContactProperties {
+      material2 "slider"
+      coulombFriction [
+        0
+      ]
+    }
   ]
-  title "Camera"
 }
 Viewpoint {
   orientation 0.7783670393809806 0.5860926024849423 0.22503380483321708 5.407504717107056
