@@ -1,0 +1,228 @@
+PROTO robot1 [
+  field SFVec3f translation 0 0 0
+  field SFRotation rotation 0 1 0 0
+  field SFString controller "basic_obstacle_avoidance"
+]
+{
+  Robot {
+    translation IS translation
+	rotation IS rotation
+    children [
+	  DEF BASE_TR Transform {
+	    translation 0 0.04 0
+	    children [
+		  Shape {
+		    appearance DEF BODY_APR PBRAppearance {
+			  baseColor 0 0 1
+			  roughness 1
+			  metalness 0
+		    }
+		    geometry DEF BASE Cylinder {
+			  height 0.06
+			  radius 0.08
+		    }
+		  }
+	    ]
+	  }
+	  DEF HEAD_TR Transform {
+	    translation 0 0.07 0
+	    children [
+		  Shape {
+		    appearance USE BODY_APR
+		    geometry DEF HEAD Sphere {
+			  radius 0.06
+			  subdivision 2
+		    }
+		  }
+	    ]
+	  }
+	  DEF REAR_CASTOR Solid {
+	    translation 0 0.01 0.06
+	    children [
+		  DEF CASTOR Shape {
+		    appearance PBRAppearance {
+		    }
+		    geometry Sphere {
+			  radius 0.01
+		    }
+		  }
+	    ]
+	    contactMaterial "slider"
+	    boundingObject USE CASTOR
+	    physics Physics {
+	    }
+	  }
+	  DEF FRONT_CASTOR Solid {
+	    translation 0 0.01 -0.06
+	    children [
+		  USE CASTOR
+	    ]
+	    name "solid(1)"
+	    contactMaterial "slider"
+	    boundingObject USE CASTOR
+	    physics Physics {
+	    }
+	  }
+	  HingeJoint {
+	    jointParameters HingeJointParameters {
+		  axis -1 0 0
+		  anchor 0 0.04 0
+	    }
+	    device [
+		  RotationalMotor {
+		    name "left wheel motor"
+		    consumptionFactor 70
+		    maxVelocity 8
+		  }
+		  PositionSensor {
+		    name "left wheel encoder"
+		  }
+	    ]
+	    endPoint Solid {
+		  translation -0.08 0.04 0
+		  rotation 1 0 0 4.98467
+		  children [
+		    DEF WHEEL Transform {
+			  rotation 0 0 1 1.57
+			  children [
+			    Shape {
+				  appearance PBRAppearance {
+				    baseColor 1 0 0
+				    roughness 1
+				    metalness 0
+				  }
+				  geometry Cylinder {
+				    height 0.01
+				    radius 0.04
+				  }
+			    }
+			  ]
+		    }
+		  ]
+		  name "left wheel"
+		  boundingObject USE WHEEL
+		  physics DEF PHYSICS_WHEEL Physics {
+		    density -1
+		    mass 0.05
+		  }
+	    }
+	  }
+	  HingeJoint {
+	    jointParameters HingeJointParameters {
+		  axis -1 0 0
+		  anchor 0 0.04 0
+	    }
+	    device [
+		  RotationalMotor {
+		    name "right wheel motor"
+		    consumptionFactor 70
+		    maxVelocity 8
+		  }
+		  PositionSensor {
+		    name "right wheel encoder"
+		  }
+	    ]
+	    endPoint Solid {
+		  translation 0.08 0.04 0
+		  rotation 1 0 0 4.58735
+		  children [
+		    USE WHEEL
+		  ]
+		  name "right wheel"
+		  boundingObject USE WHEEL
+		  physics USE PHYSICS_WHEEL
+	    }
+	  }
+	  DistanceSensor {
+	    translation -0.036 0.04 -0.072
+	    rotation 0 1 0 2.07
+	    children [
+		  DEF SENSOR Transform {
+		    rotation 0 0 1 1.57
+		    children [
+			  Shape {
+			    appearance PBRAppearance {
+				  baseColor 0.975691 0.981481 0.0252992
+				  roughness 1
+				  metalness 0
+			    }
+			    geometry Cylinder {
+				  height 0.004
+				  radius 0.008
+			    }
+			  }
+		    ]
+		  }
+	    ]
+	    name "ds0"
+	    lookupTable [
+		  0 1024 0
+		  0.05 1024 0
+		  0.15 0 0
+	    ]
+	    numberOfRays 2
+	    aperture 1
+	  }
+	  DistanceSensor {
+	    translation 0.036 0.04 -0.072
+	    rotation 0 1 0 1.07
+	    children [
+		  USE SENSOR
+	    ]
+	    name "ds1"
+	    lookupTable [
+		  0 1024 0
+		  0.05 1024 0
+		  0.15 0 0
+	    ]
+	    numberOfRays 2
+	    aperture 1
+	  }
+	  Camera {
+	    translation 0 0.07 -0.09
+	    rotation 0 0 -1 0
+	    children [
+		  Transform {
+		    translation 0 0 0.015
+		    rotation 1 0 0 1.57
+		    children [
+			  Shape {
+			    appearance PBRAppearance {
+				  roughness 1
+				  metalness 0
+			    }
+			    geometry Cylinder {
+				  height 0.03
+				  radius 0.01
+			    }
+			  }
+		    ]
+		  }
+	    ]
+	    fieldOfView 1.047
+	    width 400
+	    height 300
+	    antiAliasing TRUE
+	    noise 0.04
+	  }
+	  Compass {
+	    translation 0 0.04 0
+	    yAxis FALSE
+	    zAxis FALSE
+	  }
+    ]
+    name "TheEggMan"
+    contactMaterial ""
+    boundingObject Group {
+	  children [
+	    USE BASE_TR
+	    USE HEAD_TR
+	  ]
+    }
+    physics Physics {
+	  density -1
+	  mass 0.5
+    }
+    controller IS controller
+  }
+}
