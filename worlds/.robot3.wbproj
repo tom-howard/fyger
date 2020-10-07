@@ -7,5 +7,5 @@ centralWidgetVisible: 1
 selectionDisabled: 0
 viewpointLocked: 0
 orthographicViewHeight: 1
-textFiles: 2 "controllers/compass_test/compass_test.py" "controllers/colour_detection/colour_detection.py" "controllers/basic_obstacle_avoidance/basic_obstacle_avoidance.py"
+textFiles: 0 "controllers/colour_detection/colour_detection.py" "controllers/basic_obstacle_avoidance/basic_obstacle_avoidance.py"
 renderingDevicePerspectives: TheEgg-sterminator:camera;0;1;0;0
