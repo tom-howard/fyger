@@ -1,0 +1,272 @@
+#VRML_SIM R2020a utf8
+WorldInfo {
+  contactProperties [
+    ContactProperties {
+      material2 "slider"
+      coulombFriction [
+        0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.53161641507675 0.830867478907036 0.1644482280707538 5.5703733469813885
+  position -4.522183401580145 3.7070052914699785 9.162682854372632
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 1 9.5
+  floorTileSize 2.4 9.6
+  floorAppearance PBRAppearance {
+    baseColorMap ImageTexture {
+      url [
+        "textures/final_challenge_arena_floor.png"
+      ]
+    }
+    roughness 1
+    metalness 0
+  }
+}
+DEF OBSTACLES Group {
+  children [
+    wall {
+      translation -0.414594 0.07 3.27635
+      name "wall(7)"
+      length 0.15
+    }
+    wall {
+      translation 0.409913 0.07 3.14564
+      name "wall(8)"
+      length 0.15
+    }
+    cube {
+      translation 0.4 0.075 -3.15
+      name "cube(16)"
+      size 0.15 0.15 0.15
+      colour 0.5 0 0
+    }
+    cube {
+      translation -0.4 0.075 -3.15
+      name "cube(17)"
+      size 0.15 0.15 0.15
+      colour 0.5 0 0
+    }
+    cube {
+      translation 0 0.075 -3.15
+      name "cube(18)"
+      size 0.15 0.15 0.15
+      colour 0.5 0 0
+    }
+    cube {
+      translation -0.265476 0.05 1.805
+      name "cube(3)"
+      colour 0 1 0.5
+    }
+    cube {
+      translation -0.152234 0.05 1.69557
+      name "cube(5)"
+      colour 0.5 0.5 0
+    }
+    cube {
+      translation -0.035919 0.05 1.56525
+      name "cube(6)"
+      colour 0.5 0 0.5
+    }
+    cube {
+      translation -0.0162673 0.07 -2.36382
+      name "cube(7)"
+      size 0.14 0.14 0.14
+      colour 1 0.5 0.5
+    }
+    cube {
+      translation -0.0162673 0.21 -2.36382
+      rotation 0 1 0 0.5235996938995747
+      name "cube(8)"
+      size 0.14 0.14 0.14
+      colour 0.5 1 0
+    }
+    cube {
+      translation -0.0162673 0.35 -2.36382
+      rotation 0 1 0 -0.1308996938995747
+      name "cube(9)"
+      size 0.14 0.14 0.14
+      colour 0.5 0 1
+    }
+    cube {
+      translation -0.380856 0.05 1.92892
+      name "cube(4)"
+      colour 0.5 1 1
+    }
+    cube {
+      translation -0.166074 0.1 2.68144
+      rotation 0 1 0 -0.785395307179586
+      name "cube(1)"
+      size 0.1 0.2 0.3
+      colour 0 0.5 0.5
+    }
+    wall {
+      translation 0.05 0.07 -0.943675
+      rotation 0 1 0 3.9269896938995745
+      name "wall(1)"
+      length 0.1
+    }
+    wall {
+      translation 0 0.07 -1.75
+      length 0.3
+    }
+    wall {
+      translation -0.05 0.07 -0.943675
+      rotation 0 1 0 5.497789693899574
+      name "wall(6)"
+      length 0.1
+    }
+    wall {
+      translation 0 0.07 -1.32971
+      rotation 0 1 0 4.712389693899574
+      name "wall(2)"
+      length 0.8
+    }
+    cylinder {
+      translation -0.321897 0.06 -0.225286
+      name "cylinder(1)"
+      colour 0 0.5 0
+      radius 0.15
+    }
+    cylinder {
+      translation -0.411685 0.06 -0.0164653
+      name "cylinder(4)"
+      colour 0 0 0.5
+      radius 0.07
+    }
+    wall {
+      translation 0.337608 0.07 0.996826
+      rotation 0 1 0 0.7853996938995746
+      name "wall(12)"
+    }
+    wall {
+      translation -0.32 0.07 0.996826
+      rotation 0 1 0 0.7853996938995746
+      name "wall(11)"
+    }
+    wall {
+      translation 0.21086 0.07 0.598147
+      rotation 0 1 0 -0.7854003061004253
+      name "wall(4)"
+      length 0.7
+    }
+    wall {
+      translation 0.35 0.07 1.27
+      rotation 0 1 0 -0.7854003061004253
+      name "wall(5)"
+      length 0.35
+    }
+    wall {
+      translation -0.34 0.07 0.70558
+      rotation 0 1 0 -0.7854003061004253
+      name "wall(3)"
+    }
+    cube {
+      translation -0.364444 0.05 3.44053
+      rotation 0 1 0 -0.5235996938995747
+      name "cube(10)"
+      size 0.1 0.1 0.2
+      colour 0.5 1 0.5
+    }
+    cube {
+      translation 0.360882 0.04 3.86607
+      rotation 0 1 0 1.0471996938995747
+      name "cube(11)"
+      size 0.08 0.08 0.25
+      colour 0.5 0.5 1
+    }
+    cylinder {
+      translation 0.435074 0.08 -1.07134
+      height 0.16
+      colour 0.7 0.2 0.7
+    }
+    cylinder {
+      translation 0.0769072 0.08 -1.37254
+      name "cylinder(2)"
+      height 0.16
+      colour 0.1 0.2 0.1
+    }
+    cylinder {
+      translation 0.439941 0.08 -1.67767
+      name "cylinder(3)"
+      height 0.16
+      colour 0.8 0.5 0.3
+    }
+    wall {
+      translation 0.237869 0.07 0.341831
+      name "wall(9)"
+      length 0.5
+    }
+  ]
+}
+DEF STOP_ZONES Group {
+  children [
+    ColouredStopZone {
+      translation 0.32 0 -4.564
+      colour 0 1 0
+    }
+    ColouredStopZone {
+      translation 0 0 -4.564
+      colour 1 0 0
+      name "coloured stop zone(1)"
+    }
+    ColouredStopZone {
+      translation -0.32 0 -4.564
+      colour 0 0 1
+      name "coloured stop zone(2)"
+    }
+  ]
+}
+DEF FINISH_FLAG Solid {
+  translation 0 0 -3.75
+  children [
+    Transform {
+      translation 0.5 0.3 0
+      children [
+        DEF FLAG_POLE Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.6
+            radius 0.02
+          }
+        }
+      ]
+    }
+    Transform {
+      translation -0.5 0.3 0
+      children [
+        USE FLAG_POLE
+      ]
+    }
+    Transform {
+      translation 0 0.55 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/chequered_flag.png"
+              ]
+            }
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 1 0.1 0.01
+          }
+        }
+      ]
+    }
+  ]
+}
