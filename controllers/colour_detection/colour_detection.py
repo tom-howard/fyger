@@ -1,4 +1,12 @@
-"""A simple controller to make a robot detect the coloured corners of a small arena."""
+"""
+A simple controller to make a robot detect the coloured corners of a small arena.
+
+This controller been adapted from that provided as part of the "camera.wbt" 
+Sample Webots Application, as provided in the Webots Software and also published here:
+   
+   https://cyberbotics.com/doc/guide/samples-devices#camera-wbt
+
+"""
 
 from controller import Robot
 
